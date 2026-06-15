@@ -22,7 +22,7 @@ def booking_by_id(id):
     return jsonify(data)
 
 @app.route("/bookings", methods=["POST"])
-def create_booking():
+def create_booking():    
     data = request.get_json()
     passenger_name = data.get("passenger_name")
     destination_city = data.get("destination_city")
@@ -30,6 +30,12 @@ def create_booking():
     travel_date = data.get("travel_date")
     seat_number = data.get("seat_number")
     ticket_price = data.get("ticket_price")
+    if not passenger_name:
+        return jsonify({"error": "Passenger name is required"}), 400
+    if ticket_price <= 0:
+        return jsonify({"error": "Ticket price must be positive"}), 400
+    if not isinstance(ticket_price, (int, float)):
+        return jsonify({"error": "Ticket price must be a number"}), 400
 
     add_booking(
         passenger_name,

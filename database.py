@@ -23,7 +23,7 @@ CREATE TABLE IF NOT EXISTS bookings (
 """)
 
 
-def add_booking(passenger_name, departure_city, destination_city, travel_date, seat_number, ticket_price, status = "booked"):
+def add_booking(passenger_name, departure_city, destination_city, travel_date, seat_number, ticket_price, status="booked"):
     conn = get_connection()
     cursor = conn.cursor()
 
@@ -31,7 +31,8 @@ def add_booking(passenger_name, departure_city, destination_city, travel_date, s
     INSERT INTO bookings
     (passenger_name, departure_city, destination_city, travel_date, seat_number, ticket_price, status)
     VALUES (?, ?, ?, ?, ?, ?, ?)
-    """, (passenger_name, departure_city, destination_city, travel_date, seat_number, ticket_price, "Booked"))
+    """, (passenger_name, departure_city, destination_city, travel_date, seat_number, ticket_price, status))
+    
     conn.commit()
     conn.close()
 
